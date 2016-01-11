@@ -167,6 +167,13 @@ phina.define('MainScene', {
       var result = pieces.every(function(p) {
         return p.color === color;
       });
+
+      if (result) {
+        pieces.each(function(p) {
+          var color = COLOR_LIST.pickup(color);
+          p.changeColor(color);
+        });
+      }
     }, this);
 
     // 縦チェック
@@ -181,7 +188,12 @@ phina.define('MainScene', {
       var result = pieces.every(function(p) {
         return p.color === color;
       });
-      console.log(result);
+      if (result) {
+        pieces.each(function(p) {
+          var color = COLOR_LIST.pickup(color);
+          p.changeColor(color);
+        });
+      }
     }, this);
   },
 });
@@ -197,12 +209,16 @@ phina.define('Piece', {
       cornerRadius: 10,
     });
 
+
+    this.changeColor(color);
+  },
+
+  changeColor: function(color) {
     this.fill = {
       'red': 'hsl(0, 80%, 70%)',
       'green': 'hsl(120, 80%, 70%)',
       'blue': 'hsl(240, 80%, 70%)',
     }[color];
-
     this.color = color;
   },
 });
